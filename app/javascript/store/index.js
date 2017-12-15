@@ -1,19 +1,31 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import * as types from './mutation-types'
+import * as actions from './actions'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     currentUser: null,
-    messages: []
+    messages: [],
+    songs:{},
+    songsIds:[]
   },
   mutations: {
-    init(state,initializer){
+    [types.INIT](state,initializer){
       state.currentUser=initializer.currentUser
     },
-    addMessage(state,message){
+    [types.ADD_MESSAGE](state,message){
       state.messages.push(message)
+    },
+    [types.ADD_SONG](state,song){
+      Vue.set(state.songs,song.id,song);
+      state.songsIds.push(song.id);
     }
-  }
+  },
+  getters: {
+    songArray: (state) => state.songsIds.map( songId => state.songs[songId] )
+  },
+  actions
 })

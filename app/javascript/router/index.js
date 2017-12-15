@@ -8,7 +8,8 @@ Vue.use(VueRouter)
 
 export default new VueRouter({
   routes: [
-    { path: '/songs', component: SongList },
-    { path: '/songs/:id', component: SongViewer }
+    { path: '/', redirect: { name: 'songs' }},
+    { path: '/songs', name: 'songs', component: SongList },
+    { path: '/songs/:id', name: 'song', component: SongViewer }
   ]
 })

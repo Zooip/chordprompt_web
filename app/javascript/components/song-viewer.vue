@@ -1,15 +1,30 @@
 <template>
     <div>
-        I am a song
+        <h1>{{song.title}}</h1>
     </div>
 </template>
 
 <script>
+  import { mapState, mapGetters } from 'vuex'
+
   export default {
     name: "song-viewer",
     data: function () {
-      return {}
-    }
+      return {
+        currentId: this.$route.params.id
+      }
+    },
+    computed:{
+      ...mapState({
+        song(state) {
+          return state.songs[this.currentId]
+        }
+      })
+    },
+    beforeRouteUpdate (to, from, next){
+      this.currentId=to.params.id
+      next()
+    },
   }
 </script>
 

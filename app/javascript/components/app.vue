@@ -4,12 +4,6 @@
   <div id="app">
     <app-header></app-header>
     <router-view></router-view>
-    <h1>Message</h1>
-    <ul id="example-1">
-      <li v-for="message in messages">
-        {{message}}
-      </li>
-    </ul>
   </div>
 </template>
 
