@@ -1,5 +1,5 @@
 class API::SongsController < API::BaseController
-  before_action :set_song, only: [:show, :update, :destroy]
+  before_action :set_song, only: [:show, :update, :destroy, :image]
 
   # GET /songs
   # GET /songs.json
@@ -21,6 +21,11 @@ class API::SongsController < API::BaseController
   def show
     render jsonapi: @song,
            fields: fields_params
+  end
+
+  # GET /songs/1/image
+  def image
+    send_data @song.image.data, :type => 'image/jpeg', :disposition => 'inline'
   end
 
   # POST /songs

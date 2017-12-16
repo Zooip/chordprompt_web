@@ -8,15 +8,18 @@ class SerializableSong < JSONAPI::Serializable::Resource
   attribute :title
   attribute :artist
   attribute :duration
-  attribute :image
 
   has_one :owner do
     linkage do
       { type: 'users', id: @object.owner_id.to_s }
     end
-  end
+  end f
 
   link :self do
     @url_helpers.api_song_url(@object.id, host: @url_host)
+  end
+
+  link :image do
+    @url_helpers.image_api_song_url(@object.id, host: @url_host)
   end
 end

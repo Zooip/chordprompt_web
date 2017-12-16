@@ -1,6 +1,10 @@
 <template>
     <div>
         <h1>{{song.title}}</h1>
+        <h2>{{song.artist}}</h2>
+        <div>
+            <img :src="song.links.image">
+        </div>
     </div>
 </template>
 
