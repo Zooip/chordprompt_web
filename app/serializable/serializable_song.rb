@@ -1,4 +1,4 @@
-class SerializableSong < JSONAPI::Serializable::Resource
+class SerializableSong < SerializableBase
   type 'songs'
   attribute :id do
     @object.id.to_s
@@ -13,7 +13,9 @@ class SerializableSong < JSONAPI::Serializable::Resource
     linkage do
       { type: 'users', id: @object.owner_id.to_s }
     end
-  end f
+  end
+
+  has_many :song_documents
 
   link :self do
     @url_helpers.api_song_url(@object.id, host: @url_host)

@@ -6,6 +6,11 @@ export default {
        return this.handle_paginated_response(response,[])
     })
   },
+  findPromise(id){
+    return baseApi.find('song',id,{include:['song_documents']}).then((response)=>{
+       return response
+    })
+  },
   handle_paginated_response(response, previousArray){
     let currentlist=previousArray.concat(response.data)
     if(response.links.next)

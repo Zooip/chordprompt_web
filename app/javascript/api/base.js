@@ -10,5 +10,6 @@ const jsonApi = new JsonApi({
 })
 
 jsonApi.define('song', models.song_attributes)
+jsonApi.define('song_document', models.song_document_attributes)
 
 export default jsonApi

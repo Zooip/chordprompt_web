@@ -1,1 +1,2 @@
-export const song_attributes = <%= SerializableSong.attribute_blocks.keys.map{|k| [k,'']}.to_h.to_json %>
+export const song_attributes = <%= SerializableSong.devour_attributes.to_json %>
+export const song_document_attributes = <%= SerializableSongDocument.devour_attributes.to_json %>

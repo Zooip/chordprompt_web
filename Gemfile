@@ -29,7 +29,7 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker'
+gem 'webpacker', '~> 3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -56,10 +56,15 @@ group :development, :test do
 
   gem 'rspec-rails', '~> 3.7'
   gem 'database_cleaner', '~> 1.6', '>= 1.6.1'
-  gem 'cucumber-rails', '~> 1.5'
+  
   gem 'factory_bot_rails', '~> 4.8'
   gem 'faker', '~> 1.8', '>= 1.8.4'
 end
+
+group :test do
+  gem 'cucumber-rails', '~> 1.5', require: false
+end
+
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.

@@ -1,17 +1,18 @@
-class API::SongsController < API::BaseController
-  before_action :set_song, only: [:show, :update, :destroy, :image]
+class API::SongDocumentsController < API::BaseController
+  before_action :set_song
+  before_action :set_song_document, only: [:show, :update, :destroy, :image]
 
   # GET /songs
   # GET /songs.json
   def index
-    @songs = Song.page(page).per(per_page)
-    render jsonapi: @songs,
+    @song_documents = @song.song_documents.page(page).per(per_page)
+    render jsonapi: @song_documents,
            include: include_params,
            meta: {
-               **total_count_meta_for(@songs)
+               **total_count_meta_for(@song_documents)
            },
            links:{
-               **pagination_links_for(@songs,request.url)
+               **pagination_links_for(@song_documents,request.url)
            },
            fields: fields_params
   end
@@ -19,22 +20,16 @@ class API::SongsController < API::BaseController
   # GET /songs/1
   # GET /songs/1.json
   def show
-    render jsonapi: @song,
+    render jsonapi: @song_document,
            fields: fields_params,
            include: include_params,
            fields: fields_params
   end
 
-  # GET /songs/1/image
-  def image
-    send_data @song.image.data, :type => 'image/jpeg', :disposition => 'inline'
-  end
-
   # POST /songs
   # POST /songs.json
   def create
-    @song = Song.new(song_params)
-
+    @song_document = @song.song_documents.new(song_params)
     if @song.save
       render :show, status: :created, location: @song
     else
@@ -59,9 +54,15 @@ class API::SongsController < API::BaseController
   end
 
   private
+
+
     # Use callbacks to share common setup or constraints between actions.
     def set_song
-      @song = Song.find(params[:id])
+      @song = Song.find(params[:song_id])
+    end
+
+    def set_song_document
+      @song_document=@song.song_documents.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

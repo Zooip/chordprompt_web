@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       member do
         get 'image'
       end
+      resources :song_documents
     end
   end
 
