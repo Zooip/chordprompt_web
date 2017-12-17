@@ -5,6 +5,14 @@
         <div>
             <img :src="song.links.image">
         </div>
+        <div>
+            <h3>Documents</h3>
+            <ul>
+                <li v-for="doc in song.song_documents">
+                    {{doc.name}}
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -27,8 +35,17 @@
     },
     beforeRouteUpdate (to, from, next){
       this.currentId=to.params.id
+      this.refreshCurrentSong();
       next()
+    }, methods:{
+      refreshCurrentSong: function() {
+        this.$store.dispatch("fetchSong",this.currentId)
+      }
     },
+    mounted: function(){
+        this.refreshCurrentSong();
+    }
+
   }
 </script>
 

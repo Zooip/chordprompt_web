@@ -8,7 +8,7 @@ export default {
   },
   findPromise(id){
     return baseApi.find('song',id,{include:['song_documents']}).then((response)=>{
-       return response
+       return response.data
     })
   },
   handle_paginated_response(response, previousArray){

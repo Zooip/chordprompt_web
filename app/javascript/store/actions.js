@@ -2,14 +2,17 @@ import * as types from './mutation-types'
 import * as api from '../api'
 
 export const fetchAllSongs = ({commit}) => {
-    console.log("FETCH ALL SONGS")
     api.songs.allPromise().then((songs)=>{
-
-      console.log(songs);
-
       for (let i = 0; i < songs.length; i++){
-        commit(types.ADD_SONG,songs[i])
+        commit(types.UPDATE_SONG,songs[i])
       }
     })
+
+}
+
+export const fetchSong = ({commit},id) => {
+  api.songs.findPromise(id).then((song)=>{
+    commit(types.UPDATE_SONG,song)
+  })
 
 }

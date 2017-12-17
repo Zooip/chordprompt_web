@@ -19,9 +19,11 @@ export default new Vuex.Store({
     [types.ADD_MESSAGE](state,message){
       state.messages.push(message)
     },
-    [types.ADD_SONG](state,song){
+    [types.UPDATE_SONG](state, song){
       Vue.set(state.songs,song.id,song);
-      state.songsIds.push(song.id);
+      if(!state.songsIds.includes(song.id)){
+        state.songsIds.push(song.id);
+      }
     }
   },
   getters: {
