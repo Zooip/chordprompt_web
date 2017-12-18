@@ -1,6 +1,6 @@
 class API::SongDocumentsController < API::BaseController
   before_action :set_song
-  before_action :set_song_document, only: [:show, :update, :destroy, :image]
+  before_action :set_song_document, only: [:show, :update, :destroy, :content]
 
   # GET /songs
   # GET /songs.json
@@ -21,9 +21,15 @@ class API::SongDocumentsController < API::BaseController
   # GET /songs/1.json
   def show
     render jsonapi: @song_document,
-           fields: fields_params,
            include: include_params,
            fields: fields_params
+  end
+
+  # GET /songs/1/content
+  def content
+    if @song_document.file
+      send_data @song_document.file.data, :type => @song_document.file.contentType, :disposition => 'inline'
+    end
   end
 
   # POST /songs

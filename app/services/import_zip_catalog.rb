@@ -106,8 +106,9 @@ class ImportZipCatalog
             doc=song.song_documents.new(
                 name: doc_xml.at_xpath('./nom').content,
                 sub_type: type,
-                file: file_entry.get_input_stream
             )
+
+            doc.set_file(file_entry.get_input_stream, {filename: File.basename(filename), meta_data:{from_legacy: true}})
 
             if doc.save
               store_file_path(filepath)

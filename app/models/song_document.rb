@@ -16,8 +16,12 @@ class SongDocument
     self.file_id&&Mongoid::GridFs.get(self.file_id)
   end
 
-  def file= readable
-    f=Mongoid::GridFs.put(readable)
+  def file=readable
+    set_file(readable)
+  end
+
+  def set_file(readable, attributes={})
+    f=Mongoid::GridFs.put(readable, attributes)
     self.file_id=f.id
   end
 

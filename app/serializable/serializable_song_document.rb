@@ -15,5 +15,9 @@ class SerializableSongDocument < SerializableBase
   	 @url_helpers.api_song_song_document_url(@object.song.id,@object.id, host: @url_host)
   end
 
+  link :content do
+    @url_helpers.content_api_song_song_document_url(@object.song.id,@object.id, host: @url_host)
+  end
+
 
 end
