@@ -22,14 +22,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }).$mount('#chordprompt-app');
 
   console.log(app)
+
+    const cable = ActionCable.createConsumer()
+
+    cable.subscriptions.create('TestChannel', {
+        received: function (data){
+            store.commit('addMessage',data)
+        }
+    });
+
+    cable.subscriptions.create({channel: "JamSessionChannel", id: props.jamSession.id}, {
+        received: function (data){
+            console.log(data)
+        }
+    });
+
 })
 
-const cable = ActionCable.createConsumer()
 
-cable.subscriptions.create('TestChannel', {
-  received: function (data){
-    store.commit('addMessage',data)
-  }
-});
 
 store.dispatch('fetchAllSongs')

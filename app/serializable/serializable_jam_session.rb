@@ -1,6 +1,9 @@
 class SerializableJamSession < JSONAPI::Serializable::Resource
   type 'jam_sessions'
-  attribute :_id
+  attribute :id do
+    @object.id.to_s
+  end
+
   attribute :created_at
   attribute :updated_at
   attribute :started_at

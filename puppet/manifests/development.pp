@@ -8,7 +8,7 @@ class requirements {
   }
 
   package {
-    []:
+    ['imagemagick']:
       ensure => installed, require => Exec['apt-update']
   }
 }

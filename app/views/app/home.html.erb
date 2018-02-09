@@ -9,6 +9,9 @@
                         currentUser: {
                             id: current_user.id,
                             email: current_user.email
+                        },
+                        jamSession: {
+                            id: current_user.jam_sessions.current.id.to_s
                         }
                     }.to_json do %>
 <% end %>

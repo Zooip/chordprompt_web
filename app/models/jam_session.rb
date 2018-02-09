@@ -1,6 +1,7 @@
 class JamSession
   include Mongoid::Document
   include Mongoid::Timestamps
+  include GlobalID::Identification
 
   REDIS_NAMESPACE="jamsession"
   TTL=30.minutes
@@ -16,11 +17,16 @@ class JamSession
   field :playing, type: Boolean, default: false
 
   before_save :reset_song, if: :song_id_changed?
+  after_update :notify_job
 
   def reset_song
     self.position=0
     self.playing=0
     self.started_at=nil
+  end
+
+  def notify_job
+    NotifyJamSessionUpdateJob.perform_later(self)
   end
 
   private
