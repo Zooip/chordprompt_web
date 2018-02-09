@@ -16,7 +16,11 @@ class SerializableSongDocument < SerializableBase
   end
 
   link :content do
-    @url_helpers.content_api_song_song_document_url(@object.song.id,@object.id, host: @url_host)
+    @url_helpers.content_api_song_song_document_url(@object.song.id,@object.id, host: @url_host) if @object.file
+  end
+
+  link :html do
+    @url_helpers.html_api_song_song_document_url(@object.song.id,@object.id, host: @url_host) if @object.file
   end
 
 

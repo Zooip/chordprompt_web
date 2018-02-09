@@ -17,6 +17,8 @@ gem "pundit"
 
 gem 'redis'
 
+gem 'chordpro'
+
 gem 'kaminari-mongoid'
 gem 'kaminari-actionview'
 

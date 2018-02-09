@@ -1,6 +1,6 @@
 class API::SongDocumentsController < API::BaseController
   before_action :set_song
-  before_action :set_song_document, only: [:show, :update, :destroy, :content]
+  before_action :set_song_document, only: [:show, :update, :destroy, :content, :html]
 
   # GET /songs
   # GET /songs.json
@@ -29,6 +29,13 @@ class API::SongDocumentsController < API::BaseController
   def content
     if @song_document.file
       send_data @song_document.file.data, :type => @song_document.file.contentType, :disposition => 'inline'
+    end
+  end
+
+  # GET /songs/1/html
+  def html
+    if @song_document.file
+      render inline:Chordpro.html(@song_document.file.data), content_type: 'text/html'
     end
   end
 

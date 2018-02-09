@@ -1,15 +1,32 @@
 import JsonApi from 'devour-client'
 import * as models from  './models.js.erb'
+import normalizedResponseMiddleware from './devour_middlewares/res-normalized-deserializer'
 
-var protocol = location.protocol;
-var slashes = protocol.concat("//");
-var host = slashes.concat(window.location.host);
+const protocol = location.protocol;
+const slashes = protocol.concat("//");
+const host = slashes.concat(window.location.host);
+
+
 
 const jsonApi = new JsonApi({
   apiUrl: host.concat('/api')
 })
 
+jsonApi.replaceMiddleware('response',normalizedResponseMiddleware)
+
+
+let responseLoggerMiddleware = {
+  name: 'response-logger',
+  req: (payload) => {
+    console.log(payload)
+    return payload
+  }
+}
+
+
+
 jsonApi.define('song', models.song_attributes)
 jsonApi.define('song_document', models.song_document_attributes)
+jsonApi.define('user', models.user_attributes)
 
 export default jsonApi

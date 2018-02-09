@@ -3,7 +3,13 @@ import baseApi from './base'
 export default {
   allPromise(){
     return baseApi.findAll('song').then((response)=>{
-       return this.handle_paginated_response(response,[])
+
+       return {
+         data: this.handle_paginated_response(response,[]),
+         included: response.included,
+         meta: response.meta,
+         links: response.links
+       }
     })
   },
   findPromise(id){

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :song_documents do
         member do
           get 'content'
+          get 'html'
         end
       end
     end
