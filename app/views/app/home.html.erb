@@ -7,8 +7,12 @@
                 id: "chordprompt-app",
                 data: {
                         currentUser: {
-                            id: current_user.id,
-                            email: current_user.email
+                            id: current_user.id.to_s,
+                            email: current_user.email.to_s
+                        },
+                        jamSession:{
+                            id: current_user.jam_sessions.current.id.to_s,
+                            playing: false
                         }
                     }.to_json do %>
 <% end %>

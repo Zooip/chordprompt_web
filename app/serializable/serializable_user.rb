@@ -1,4 +1,4 @@
-class SerializableUser < JSONAPI::Serializable::Resource
+class SerializableUser < SerializableBase
   type 'users'
   attribute :id do
     @object.id.to_s

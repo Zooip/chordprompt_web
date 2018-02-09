@@ -2,6 +2,7 @@
 
 <template>
   <div id="app">
+    <jamsession-controller></jamsession-controller>
     <app-header></app-header>
     <router-view></router-view>
   </div>
@@ -13,6 +14,7 @@
   import AppHeader from './app-header.vue'
   import SongList from './song-list.vue'
   import SongViewer from './song-viewer.vue'
+  import JamsessionController from './jamsession-controller.vue'
 
   export default {
     props: [],
@@ -30,7 +32,8 @@
       })
     },
     components:{
-        SongScroller,
+      JamsessionController,
+      SongScroller,
         AppHeader
     }
   }

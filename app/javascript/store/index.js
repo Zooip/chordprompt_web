@@ -8,6 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     currentUser: null,
+    jamSession: null,
     messages: [],
     songs:{},
     songsIds:[]
@@ -15,6 +16,7 @@ export default new Vuex.Store({
   mutations: {
     [types.INIT](state,initializer){
       state.currentUser=initializer.currentUser
+      state.jamSession=initializer.jamSession
     },
     [types.ADD_MESSAGE](state,message){
       state.messages.push(message)
@@ -24,6 +26,9 @@ export default new Vuex.Store({
       if(!state.songsIds.includes(song.id)){
         state.songsIds.push(song.id);
       }
+    },
+    [types.UPDATE_JAMSESSION](state, jamSession){
+      state.jamSession=jamSession
     }
   },
   getters: {
