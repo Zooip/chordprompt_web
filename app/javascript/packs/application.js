@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Get the properties BEFORE the app is instantiated
   const node = document.getElementById('chordprompt-app')
   const props = JSON.parse(node.getAttribute('data'))
-  store.commit(types['INIT'],props)
+  store.commit(types.INIT,props)
 
   const app = new Vue({
     render: h => h(App),
@@ -22,24 +22,33 @@ document.addEventListener('DOMContentLoaded', () => {
   }).$mount('#chordprompt-app');
 
   console.log(app)
-})
-
   const cable = ActionCable.createConsumer()
 
 
-  cable.subscriptions.create('TestChannel', {
-    received: function (data){
-      store.commit('ADD_MESSAGE',data)
-    }
-  })
+    cable.subscriptions.create('TestChannel', {
+        received: function (data){
+            store.commit('ADD_MESSAGE',data)
+        }
+    })
 
-  store.dispatch('fetchAllSongs')
+    store.dispatch('entities/songs/fetchAll')
 
 
-  cable.subscriptions.create({ channel: 'JamSessionChannel', id: app.$store.state.jamSession.id }, {
-    received: function (data){
-      store.commit('UPDATE_JAMSESSION', data.jamSession)
-    }
-  });
+    cable.subscriptions.create({ channel: 'JamSessionChannel', id: app.$store.state.jamSession.id }, {
+        received: function (data){
+            console.log(data)
+            store.commit('UPDATE_JAMSESSION', data.jamSession)
+        }
+    })
+
+    // const data = [
+    //   {
+    //     id: 1,
+    //     title: 'Hello, world!',
+    //     duration: 120
+    //   }
+    // ]
+
+
 
 })

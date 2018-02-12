@@ -12,16 +12,18 @@ const jsonApi = new JsonApi({
   apiUrl: host.concat('/api')
 })
 
-jsonApi.replaceMiddleware('response',normalizedResponseMiddleware)
+//jsonApi.replaceMiddleware('response',normalizedResponseMiddleware)
 
 
-let responseLoggerMiddleware = {
+const responseLoggerMiddleware = {
   name: 'response-logger',
   req: (payload) => {
     console.log(payload)
     return payload
   }
 }
+
+//jsonApi.insertMiddlewareAfter('response', responseLoggerMiddleware)
 
 
 

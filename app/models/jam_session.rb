@@ -17,7 +17,7 @@ class JamSession
   field :playing, type: Boolean, default: false
 
   before_save :reset_song, if: :song_id_changed?
-  after_update :notify_job
+  after_update :notify_change
 
   def reset_song
     self.position=0
@@ -33,7 +33,7 @@ class JamSession
   def to_h
     {
         id: self.id.to_s,
-        song_id: song_id,
+        song_id: song_id.to_s,
         position: position,
         playing: playing
     }

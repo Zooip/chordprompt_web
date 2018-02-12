@@ -4,12 +4,13 @@ export default {
   allPromise(){
     return baseApi.findAll('song').then((response)=>{
 
-       return {
-         data: this.handle_paginated_response(response,[]),
-         included: response.included,
-         meta: response.meta,
-         links: response.links
-       }
+       return this.handle_paginated_response(response,[]).then((data)=>{
+         return {
+            data: data,
+            meta: response.meta,
+            links: response.links
+          }
+       })
     })
   },
   findPromise(id){
@@ -18,6 +19,7 @@ export default {
     })
   },
   handle_paginated_response(response, previousArray){
+    //console.log({response: response})
     let currentlist=previousArray.concat(response.data)
     if(response.links.next)
     {
@@ -26,7 +28,7 @@ export default {
       })
 
     }else{
-      return currentlist
+      return new Promise(function(resolve) {resolve(currentlist)})
     }
   }
 }

@@ -2,9 +2,12 @@
 
 <template>
   <div id="app">
-    <jamsession-controller></jamsession-controller>
-    <app-header></app-header>
-    <router-view></router-view>
+    <loading-screen v-if="isLoading"></loading-screen>
+    <div id="content" v-else>
+      <jamsession-controller></jamsession-controller>
+      <app-header></app-header>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -15,12 +18,12 @@
   import SongList from './song-list.vue'
   import SongViewer from './song-viewer.vue'
   import JamsessionController from './jamsession-controller.vue'
+  import LoadingScreen from './loading-screen'
 
   export default {
     props: [],
     data: function () {
       return {
-
       }
     },
     computed:{
@@ -28,11 +31,13 @@
         return this.$store.state.currentUser.email
       },
       ...mapState({
-        messages: 'messages'
+        messages: 'messages',
+        isLoading: 'isLoading'
       })
     },
     components:{
       JamsessionController,
+      LoadingScreen,
       SongScroller,
         AppHeader
     }

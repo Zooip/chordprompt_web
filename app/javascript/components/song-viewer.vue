@@ -27,11 +27,9 @@
       }
     },
     computed:{
-      ...mapState({
-        song(state) {
-          return state.songs[this.currentId]
-        }
-      })
+      song() {
+        return this.$store.getters['entities/songs/find'](this.currentId)
+      }
     },
     beforeRouteUpdate (to, from, next){
       this.currentId=to.params.id
@@ -39,7 +37,7 @@
       next()
     }, methods:{
       refreshCurrentSong: function() {
-        this.$store.dispatch("fetchSong",this.currentId)
+        this.$store.dispatch("entities/songs/fetch",this.currentId)
       }
     },
     mounted: function(){

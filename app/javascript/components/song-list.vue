@@ -18,11 +18,7 @@
       return {}
     },
     computed: {
-      // rajouter les accesseurs dans `computed` avec l'opérateur de décomposition
-      ...mapGetters([
-        'songArray'
-        // ...
-      ])
+      songArray() {return this.$store.getters['entities/songs/all']()}
     }
   }
 </script>
