@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }).$mount('#chordprompt-app');
 
   console.log(app)
+
   const cable = ActionCable.createConsumer()
 
 
