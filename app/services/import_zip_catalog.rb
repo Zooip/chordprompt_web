@@ -1,4 +1,6 @@
 require 'zip'
+require 'mime/types'
+
 
 class ImportZipCatalog
 
@@ -20,6 +22,10 @@ class ImportZipCatalog
 
     clear_keys
   end
+
+
+
+
 
   protected
 
@@ -63,7 +69,6 @@ class ImportZipCatalog
 
       if song.save
         @legacy_id_map[legacy_id]=song
-
         import_documents(zip, song_xml, song)
       else
         puts "Could not save #{song.title}"
@@ -82,6 +87,14 @@ class ImportZipCatalog
       #"AVI"=>:avi,
       "Grille"=>:chords_grid,
       "Mp3"=>:mp3,
+  }
+
+  CONTNENT_TYPE_MAP={
+      chords: 'application/chordpro',
+      mp3: "Mp3",
+      pdf: "PDF",
+      lyrics: 'SongBook',
+      chords_grid: 'Grilles',
   }
 
   TYPE_BASE_PATH={
@@ -107,8 +120,8 @@ class ImportZipCatalog
                 name: doc_xml.at_xpath('./nom').content,
                 sub_type: type,
             )
-
-            doc.set_file(file_entry.get_input_stream, {filename: File.basename(filename), meta_data:{from_legacy: true}})
+            content=file_entry.get_input_stream.read
+            doc.set_file(StringIO.new(content), {filename: File.basename(filename), metadata:{from_legacy: true}, content_type: content_type_for(filepath) })
 
             if doc.save
               store_file_path(filepath)
@@ -122,6 +135,11 @@ class ImportZipCatalog
         end
       end
     end
+  end
+
+  def content_type_for(path)
+    ext=File.extname(path).sub('.','')
+    MIME::Types.type_for(ext).first&.content_type
   end
 
   def store_key(key)

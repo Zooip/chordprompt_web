@@ -20,6 +20,7 @@
   import JamsessionController from './jamsession-controller.vue'
   import LoadingScreen from './loading-screen'
 
+
   export default {
     props: [],
     data: function () {
@@ -39,7 +40,7 @@
       JamsessionController,
       LoadingScreen,
       SongScroller,
-        AppHeader
+      AppHeader
     }
   }
 </script>

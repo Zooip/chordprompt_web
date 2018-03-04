@@ -1,5 +1,7 @@
 // User Model
 import { Model } from '@vuex-orm/core'
+import SongDocument from './SongDocument'
+import User from './User'
 
 export default class Song extends Model {
     // This is the name used as module name of the Vuex Store.
@@ -15,8 +17,10 @@ export default class Song extends Model {
             created_at: this.attr(null, v=> (v&&(new Date(v)))),
             updated_at: this.attr(null, v=> (v&&(new Date(v)))),
             duration: this.attr(0),
-            links: this.attr({})
-            //song_documents: this.hasMany(SongDocuments, 'song_id')
+            links: this.attr({}),
+            song_documents: this.hasManyBy(SongDocument, 'song_documents'),
+            owner_id: this.attr(null),
+            owner: this.belongsTo(User,'owner_id')
         }
     }
 

@@ -10,6 +10,7 @@ export default new VueRouter({
   routes: [
     { path: '/', redirect: { name: 'songs' }},
     { path: '/songs', name: 'songs', component: SongList },
-    { path: '/songs/:id', name: 'song', component: SongViewer }
+    { path: '/songs/:id', name: 'song', component: SongViewer },
+    { path: '/songs/:id/:docId', name: 'song-document', component: SongViewer }
   ]
 })

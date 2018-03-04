@@ -1,5 +1,7 @@
 class SerializableBase < JSONAPI::Serializable::Resource
 
+	extend JSONAPI::Serializable::Resource::ConditionalFields
+
 	def self.relationship_multiplicity
 		@relationship_multiplicity||={}
 	end

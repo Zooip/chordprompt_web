@@ -2,7 +2,7 @@ import baseApi from './base'
 
 export default {
   allPromise(){
-    return baseApi.findAll('song').then((response)=>{
+    return baseApi.findAll('song',{include:['owner']}).then((response)=>{
 
        return this.handle_paginated_response(response,[]).then((data)=>{
          return {
@@ -14,7 +14,7 @@ export default {
     })
   },
   findPromise(id){
-    return baseApi.find('song',id,{include:['song_documents']}).then((response)=>{
+    return baseApi.find('song',id,{include:['owner','song_documents']}).then((response)=>{
        return response.data
     })
   },

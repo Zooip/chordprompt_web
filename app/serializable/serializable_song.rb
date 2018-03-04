@@ -1,4 +1,6 @@
 class SerializableSong < SerializableBase
+
+
   type 'songs'
   attribute :id do
     @object.id.to_s
@@ -21,7 +23,7 @@ class SerializableSong < SerializableBase
     @url_helpers.api_song_url(@object.id, host: @url_host)
   end
 
-  link :image do
+  link :image, if: -> { @object.image } do
     @url_helpers.image_api_song_url(@object.id, host: @url_host)
   end
 end

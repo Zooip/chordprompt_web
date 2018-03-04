@@ -11,8 +11,8 @@ class API::SongDocumentsController < API::BaseController
            meta: {
                **total_count_meta_for(@song_documents)
            },
-           links:{
-               **pagination_links_for(@song_documents,request.url)
+           links: {
+               **pagination_links_for(@song_documents, request.url)
            },
            fields: fields_params
   end
@@ -28,14 +28,19 @@ class API::SongDocumentsController < API::BaseController
   # GET /songs/1/content
   def content
     if @song_document.file
-      send_data @song_document.file.data, :type => @song_document.file.contentType, :disposition => 'inline'
+      send_data @song_document.file.data, :type => @song_document.file.content_type, :disposition => 'inline'
     end
   end
 
   # GET /songs/1/html
   def html
-    if @song_document.file
-      render inline:Chordpro.html(@song_document.file.data), content_type: 'text/html'
+    if file = @song_document.file
+      case @song_document.sub_type
+        when :chords
+          render inline: Chordpro.html(file.data), content_type: 'text/html'
+        when :pdf
+          render inline: @song_document.image_preview&.to_html, content_type: 'text/html'
+      end
     end
   end
 
@@ -69,17 +74,17 @@ class API::SongDocumentsController < API::BaseController
   private
 
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_song
-      @song = Song.find(params[:song_id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_song
+    @song = Song.find(params[:song_id])
+  end
 
-    def set_song_document
-      @song_document=@song.song_documents.find(params[:id])
-    end
+  def set_song_document
+    @song_document = @song.song_documents.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def song_params
-      params.require(:song).permit(:title, :artist, :duration, :image)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def song_params
+    params.require(:song).permit(:title, :artist, :duration, :image)
+  end
 end

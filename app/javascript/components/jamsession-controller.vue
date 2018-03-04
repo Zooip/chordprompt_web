@@ -56,6 +56,7 @@
         position: fixed;
         bottom:0px;
         padding: 5px;
+        z-index:1000;
     }
 
     #jamsession-buttons {

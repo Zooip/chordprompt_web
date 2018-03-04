@@ -31,3 +31,10 @@
 
 en:
   hello: "Hello world"
+  services:
+    errors:
+      document_preview_generators:
+        pdf:
+          no_file: "This song document has no associated file or the file does not exist"
+          invalid_content_type: "The song document's file does not have expected content-type (expected 'application/pdf')"
+

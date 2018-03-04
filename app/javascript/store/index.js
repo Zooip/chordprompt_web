@@ -5,8 +5,15 @@ import VuexORM from '@vuex-orm/core'
 
 import * as types from './mutation-types'
 import * as actions from './actions'
-import Song from  '../models/Song'
+
+import Song from '../models/Song'
 import songs from './modules/songs'
+
+import SongDocument from '../models/SongDocument'
+import song_documents from './modules/song-documents'
+
+import User from '../models/User'
+import users from './modules/users'
 
 Vue.use(Vuex)
 
@@ -14,6 +21,8 @@ Vue.use(Vuex)
 const database = new VuexORM.Database()
 
 database.register(Song, songs)
+database.register(SongDocument, song_documents)
+database.register(User,users)
 
 export default new Vuex.Store({
   plugins: [
@@ -23,23 +32,17 @@ export default new Vuex.Store({
     isLoading: true,
     currentUser: null,
     jamSession: null,
-    messages: [],
-    songs:{},
-    songsIds:[]
   },
   mutations: {
-    [types.INIT](state,initializer){
-      state.currentUser=initializer.currentUser
-      state.jamSession=initializer.jamSession
+    [types.INIT](state, initializer) {
+      state.currentUser = initializer.currentUser;
+      state.jamSession = initializer.jamSession
     },
-    [types.SET_LOADED](state){
-      state.isLoading=false
+    [types.SET_LOADED](state) {
+      state.isLoading = false
     },
-    [types.ADD_MESSAGE](state,message){
-      state.messages.push(message)
-    },
-    [types.UPDATE_JAMSESSION](state, jamSession){
-      state.jamSession=jamSession
+    [types.UPDATE_JAMSESSION](state, jamSession) {
+      state.jamSession = jamSession
     }
   },
   actions
