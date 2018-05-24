@@ -1,7 +1,7 @@
 <template>
     <div class="pdf-viewer">
         <pdf
-                v-for="i in numPages"
+            v-for="i in numPages"
             :src="loadingTask"
             :page="i"
                 :key="i"
@@ -27,8 +27,12 @@
       html_content: function () {
         return this.html_source
       },
-      link() {return this.document.links.content},
-      loadingTask() {return pdf.createLoadingTask(this.link);}
+      link() {
+        return this.document.links.content
+      },
+      loadingTask() {
+        return pdf.createLoadingTask(this.link);
+      }
 
     },
     components:{

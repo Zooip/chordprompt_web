@@ -45,7 +45,7 @@ development:
     overlay: true
     disable_host_check: true
     use_local_ip: false
-    watchOptions:
+    watch_options:
       poll: true
 
 test:

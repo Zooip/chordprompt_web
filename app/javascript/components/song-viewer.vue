@@ -1,19 +1,21 @@
 <template>
     <div>
-        <div class="song-header">
-            <img class="song-avatar" :src="song.links.image">
-            <div class="song-header-text">
-                <div class="song-artist">{{song.artist}}</div>
-                <div class="song-title">{{song.title}}</div>
+        <div class="song-header-container">
+            <div class="song-header">
+                <img class="song-avatar" :src="song.links.image">
+                <div class="song-header-text">
+                    <div class="song-artist">{{song.artist}}</div>
+                    <div class="song-title">{{song.title}}</div>
+                </div>
+            </div>
+            <div class="song-document-selecter-container">
+                <v-select :options="options"
+                          :value="docToOptions(document)"
+                          @input="changeDocument"
+                ></v-select>
             </div>
         </div>
-        <div>
-            <v-select :options="options"
-                      :value="docToOptions(document)"
-                      @input="changeDocument"
-            ></v-select>
-            <document-viewer :document="document"></document-viewer>
-        </div>
+        <document-viewer :document="document"></document-viewer>
     </div>
 </template>
 
@@ -74,6 +76,7 @@
 </script>
 
 <style scoped>
+
     .song-header{
         background: #ffffff;
         margin-left: 30px;
@@ -106,6 +109,10 @@
     .song-header .song-header-text .song-title{
         font-size: 36px;
         font-family: Roboto,Arial;
+    }
+
+    .document-viewer {
+
     }
 
 </style>

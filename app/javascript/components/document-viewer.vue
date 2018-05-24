@@ -1,10 +1,13 @@
 <template>
     <div class="document-viewer">
-        <div v-bind:is="viewer_component_name" v-bind:document="document"></div>
+        <vue-scrollbar classes="my-scrollbar" ref="Scrollbar">
+            <div v-if="document" v-bind:is="viewer_component_name" v-bind:document="document"></div>
+        </vue-scrollbar>
     </div>
 </template>
 
 <script>
+  import VueScrollbar from 'vue2-scrollbar'
   import ChorproViewer from './documents_viewers/document-viewer-chords'
   import PdfViewer from './documents_viewers/document-viewer-pdf'
 
@@ -21,7 +24,8 @@
     },
     components: {
       "document-viewer-chords": ChorproViewer,
-      "document-viewer-pdf": PdfViewer
+      "document-viewer-pdf": PdfViewer,
+      "vue-scrollbar": VueScrollbar,
     }
   }
 </script>
@@ -29,6 +33,8 @@
 <style scoped>
     .document-viewer {
         background: white;
+        max-width: 800px;
+        max-height: 600px;
     }
 
 
