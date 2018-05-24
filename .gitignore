@@ -19,7 +19,7 @@
 .byebug_history
 /public/packs
 /public/packs-test
-/node_modules
 
 .idea
 .vagrant
+/ubuntu-xenial-16.04-cloudimg-console.log
