@@ -20,8 +20,11 @@
 <style scoped>
 
   header{
-    width: 100%;
-    background-color: #6666ff;
+      position: absolute;
+      top:0;
+      left: 0;
+      right: 0;
+      background-color: #6666ff;
   }
 
 </style>

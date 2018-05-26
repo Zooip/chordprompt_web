@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="song-header-container">
+    <div class="song-viewer" id="song-viewer">
+        <div id="song-header-container" class="song-header-container">
             <div class="song-header">
                 <img class="song-avatar" :src="song.links.image">
                 <div class="song-header-text">
@@ -24,6 +24,7 @@
   import DocumentViewer from './document-viewer'
   import vSelect from 'vue-select'
   import router from '../router'
+  import $ from "jquery";
 
   export default {
     name: "song-viewer",
@@ -61,14 +62,27 @@
       changeDocument(doc){
         this.currentDocId=doc.value
         //router.replace({name:'song-document', params:{id: this.currentId, docId: doc.value}})
+      },
+      handleResize(){
+        console.log('Resize !');
+        if(document.getElementById('song-viewer')){
+          let remaining_size=document.getElementById('song-viewer').offsetHeight-document.getElementById('song-header-container').offsetHeight;
+          console.log(remaining_size);
+          document.getElementById('document-viewer').style.height = remaining_size+"px";
+        }
       }
     },
     mounted: function(){
         this.refreshCurrentSong();
+        window.addEventListener('resize', this.handleResize);
+        this.handleResize();
     },
     components:{
       "document-viewer": DocumentViewer,
       vSelect
+    },
+    beforeDestroy: function () {
+      window.removeEventListener('resize', this.handleResize)
     }
 
 
@@ -76,6 +90,10 @@
 </script>
 
 <style scoped>
+
+    .song-viewer{
+        height: 100%;
+    }
 
     .song-header{
         background: #ffffff;

@@ -6,7 +6,9 @@
     <div id="content" v-else>
       <jamsession-controller></jamsession-controller>
       <app-header></app-header>
-      <router-view></router-view>
+      <div id="routed-content">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>
@@ -46,8 +48,24 @@
 </script>
 
 <style scoped>
+  #app {
+    position: absolute;
+    bottom:0;
+    top:0;
+    left:0;
+    right: 0;
+  }
+
 p {
   font-size: 2em;
   text-align: center;
+}
+
+#routed-content {
+  position: absolute;
+  left:0;
+  right: 0;
+  top: 40px;
+  bottom: 50px;
 }
 </style>
