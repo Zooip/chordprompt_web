@@ -25,5 +25,7 @@
 </script>
 
 <style scoped>
-
+    .badge-avatar{
+        height: 20px;
+    }
 </style>
