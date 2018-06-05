@@ -6,6 +6,7 @@
                 <div class="song-header-text">
                     <div class="song-artist">{{song.artist}}</div>
                     <div class="song-title">{{song.title}}</div>
+                    <button v-on:click="togglePlaying()">Toggle</button>
                 </div>
             </div>
             <div class="song-document-selecter-container">
@@ -15,11 +16,13 @@
                 ></v-select>
             </div>
         </div>
-        <document-viewer :document="document"></document-viewer>
+        <document-viewer :document="document" :position="position" :playing="playing" @scrolledTo="scrollHandle"></document-viewer>
     </div>
 </template>
 
 <script>
+  const SCROLLER_DELAY=20;
+
   import { mapState, mapGetters } from 'vuex'
   import DocumentViewer from './document-viewer'
   import vSelect from 'vue-select'
@@ -30,8 +33,11 @@
     name: "song-viewer",
     data: function () {
       return {
+        pos: 0,
         currentId: this.$route.params.id,
         currentDocId: this.$route.params.docId,
+        timer: undefined,
+        playing: false
       }
     },
     computed:{
@@ -45,13 +51,28 @@
       document(){
         let routeDocument=this.currentDocId&&this.song&&this.song.song_documents.find(doc =>doc.id==this.currentDocId);
         return routeDocument||this.song&&this.song.song_documents[0]
+      },
+      position:{
+        get: function(){
+          return this.pos
+        },
+        set: function(v){
+          if(v<0){
+            this.pos=0;
+          } else if (v>100) {
+            this.pos=100;
+          } else {
+            this.pos=v;
+          }
+        }
       }
     },
     beforeRouteUpdate (to, from, next){
       this.currentId=to.params.id
       this.refreshCurrentSong();
       next()
-    }, methods:{
+    },
+    methods:{
       refreshCurrentSong: function() {
         this.$store.dispatch("entities/songs/fetch",this.currentId)
       },
@@ -64,24 +85,54 @@
         //router.replace({name:'song-document', params:{id: this.currentId, docId: doc.value}})
       },
       handleResize(){
-        console.log('Resize !');
         if(document.getElementById('song-viewer')){
           let remaining_size=document.getElementById('song-viewer').offsetHeight-document.getElementById('song-header-container').offsetHeight;
           console.log(remaining_size);
           document.getElementById('document-viewer').style.height = remaining_size+"px";
         }
+      },
+      startScrolling(){
+        if(this.timer===undefined){
+          let that=this;
+          this.timer=setInterval(function(){
+            that.position=that.position+(SCROLLER_DELAY/(that.song.duration*10.0))
+          }, SCROLLER_DELAY);
+        }else{
+          console.log("Song already running")
+        }
+      },
+      stopScrolling(){
+        clearInterval(this.timer);
+        this.timer=undefined
+      },
+      togglePlaying(){
+        this.playing=!this.playing
+      },
+      scrollHandle(pos) {
+        this.position=pos;
+      }
+    },
+    watch:{
+      playing(newVal, oldVal){
+        let that=this;
+        if(newVal){
+          that.startScrolling()
+        }else{
+          that.stopScrolling()
+        }
       }
     },
     mounted: function(){
-        this.refreshCurrentSong();
-        window.addEventListener('resize', this.handleResize);
-        this.handleResize();
+      this.refreshCurrentSong();
+      window.addEventListener('resize', this.handleResize);
+      this.handleResize();
     },
     components:{
       "document-viewer": DocumentViewer,
       vSelect
     },
     beforeDestroy: function () {
+      this.stop();
       window.removeEventListener('resize', this.handleResize)
     }
 
