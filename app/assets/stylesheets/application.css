@@ -19,3 +19,120 @@ body{
     margin: 0;
     background: #F7F7F7;
 }
+
+input {
+    outline: none;
+    border: none;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+textarea {
+    outline: none;
+    border: none;
+}
+
+textarea:focus, input:focus {
+    border-color: transparent !important;
+}
+
+
+input::-webkit-input-placeholder { color: #43383e;}
+input:-moz-placeholder { color: #43383e;}
+input::-moz-placeholder { color: #43383e;}
+input:-ms-input-placeholder { color: #43383e;}
+
+textarea::-webkit-input-placeholder { color: #43383e;}
+textarea:-moz-placeholder { color: #43383e;}
+textarea::-moz-placeholder { color: #43383e;}
+textarea:-ms-input-placeholder { color: #43383e;}
+
+/*---------------------------------------------*/
+button {
+    outline: none !important;
+    border: none;
+    background: transparent;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+iframe {
+    border: none !important;
+}
+
+
+.big-form .form-input{
+    font-family: Oswald-Medium;
+
+    font-size: 16px;
+    color: #43383e;
+    line-height: 1.2;
+    position: relative;
+    display: block;
+    width: calc(100% - 62px);
+    height: 62px;
+    background: #fff;
+    border-radius: 31px;
+    padding: 0 35px 0 35px;
+
+}
+
+.big-form input{
+    margin-top: 20px;
+}
+
+
+.big-form .container-btn {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.big-form .btn {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    min-width: 160px;
+    height: 62px;
+    border-radius: 31px;
+
+    font-family: Oswald-Regular;
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.2;
+    text-transform: uppercase;
+
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+    position: relative;
+    z-index: 1;
+
+    background-color: #333333;
+}
+
+.big-form btn:hover {
+    background-color: #222222;
+}

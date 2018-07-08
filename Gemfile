@@ -49,6 +49,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'rubyzip'
 gem "mini_magick"
 
+gem 'inline_svg'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

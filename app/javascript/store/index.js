@@ -43,7 +43,15 @@ export default new Vuex.Store({
     },
     [types.UPDATE_JAMSESSION](state, jamSession) {
       state.jamSession = jamSession
+    },
+    [types.UPDATE_JAMSESSION_SONG](state, song_id) {
+      state.jamSession = {...state.jamSession, id: song_id}
+    },
+    [types.UPDATE_JAMSESSION_PLAYING](state, playing) {
+      state.jamSession = {...state.jamSession, playing: playing}
     }
+
+
   },
   actions
 })

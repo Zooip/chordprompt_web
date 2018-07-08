@@ -37,10 +37,12 @@
       },
       ...mapState([
         'jamSession'
-        // ...
       ]),
+      song_id(){
+        return this.jamSession.id
+      },
       song: function(){
-        return this.$store.getters['entities/songs/find'](this.jamSession.songId)
+        return this.$store.getters['entities/songs/find'](this.song_id)
       }
     },
     components:{

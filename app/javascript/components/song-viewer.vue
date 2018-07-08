@@ -115,11 +115,15 @@
     watch:{
       playing(newVal, oldVal){
         let that=this;
+        this.$store.commit('UPDATE_JAMSESSION_PLAYING', newVal)
         if(newVal){
           that.startScrolling()
         }else{
           that.stopScrolling()
         }
+      },
+      song(newVal, oldVal){
+        this.$store.commit('UPDATE_JAMSESSION_SONG', newVal.id)
       }
     },
     mounted: function(){
@@ -150,7 +154,8 @@
         background: #ffffff;
         margin-left: 30px;
         margin-top: 20px;
-        min-width: 400px;
+        max-width: 100%;
+        min-width: 200px;
         display: inline-flex;
     }
 
