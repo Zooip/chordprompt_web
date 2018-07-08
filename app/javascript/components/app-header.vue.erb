@@ -1,0 +1,33 @@
+<template>
+  <header id="app-header">
+    <div class="logo">
+      <%=include InlineSvg::ActionView::Helpers;inline_svg("logo.svg", class: 'logo')%>
+    </div>
+    <nav>
+      Men
+    </nav>
+  
+  </header>
+</template>
+
+
+<script>
+  export default {
+    props:[],
+    data: function () {
+        return {}
+    }
+  }
+</script>
+
+<style scoped>
+
+  header{
+      position: absolute;
+      top:0;
+      left: 0;
+      right: 0;
+      background-color: #EDEFEF;
+  }
+
+</style>

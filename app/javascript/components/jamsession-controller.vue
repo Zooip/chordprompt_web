@@ -54,7 +54,7 @@
 <style scoped>
     #jamsession-controller {
         width: 100%;
-        background-color : dodgerblue;
+        background-color : #002E33;
         position: fixed;
         bottom:0px;
         padding: 5px;
